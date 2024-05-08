@@ -3,10 +3,10 @@ from os import environ
 from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from .case import Case
-from .contact import Contact
-from .note import Note
-from .time_and_date import Time
+from database.case import Case
+from database.contact import Contact
+from database.note import Note
+from database.time_and_date import Time
 
 
 API_TOKEN: str = environ['API_TOKEN']

@@ -38,7 +38,7 @@ class Case:
         if len(data):
             self.description = data[0]
             for index in range(1, len(data)):
-                self.description += " " + data[index]
+                self.description += f" {data[index]}"
 
         global ID_COUNTER
         self.case_id = f"identify_{ID_COUNTER}"

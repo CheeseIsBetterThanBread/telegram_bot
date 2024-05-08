@@ -256,7 +256,7 @@ async def drop_all_command(message: Message) -> None:
 
     response: str = ""
     for note in notes[user_id]:
-        response += note.to_share() + "\n\n"
+        response += f"{note.to_share()}\n\n"
 
     await bot.send_message(
         receiver_id,

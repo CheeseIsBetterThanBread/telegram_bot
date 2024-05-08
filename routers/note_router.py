@@ -6,7 +6,8 @@ from aiogram.types import FSInputFile, Message
 from aiohttp import ClientSession
 
 from database import bot, convert_username_to_id, file_prefix, notes
-from database.note import Note, separator
+from database.constants import SEPARATOR
+from database.note import Note
 
 router = Router(name = __name__)
 
@@ -85,7 +86,7 @@ async def import_note_command(message: Message) -> None:
     with open(temporary_file, 'r') as file:
         title: str = file.readline()
         data: str = file.read()  # you can't send large documents to bots
-        new_note = Note(f"{title}{separator}{data}")
+        new_note = Note(f"{title}{SEPARATOR}{data}")
     remove(temporary_file)
 
     notes[user_id].append(new_note)

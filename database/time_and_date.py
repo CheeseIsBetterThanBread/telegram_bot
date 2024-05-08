@@ -1,10 +1,12 @@
 from datetime import datetime
 
-days_in_months: list[int] = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-minutes_in_month: list[int] = [24 * 60 * days for days in days_in_months]
-minutes_usual: int = 365 * 24 * 60
-minutes_leap: int = 366 * 24 * 60
-base_year: int = 2020
+from database.constants import (
+    BASE_YEAR,
+    DAYS_IN_MONTH,
+    MINUTES_IN_MONTH,
+    MINUTES_LEAP,
+    MINUTES_USUAL
+)
 
 
 def is_date(text: str) -> bool:
@@ -15,7 +17,7 @@ def is_date(text: str) -> bool:
         day: int = int(numbers[0])
         month: int = int(numbers[1])
         _: int = int(numbers[2])
-        if 1 <= month <= 12 and 1 <= day <= days_in_months[month]:
+        if 1 <= month <= 12 and 1 <= day <= DAYS_IN_MONTH[month]:
             return True
         return False
     except ValueError:
@@ -48,22 +50,22 @@ def is_leap(year: int) -> bool:
 
 def convert(minutes: int) -> (str, str, str, str, str):
     minute_: int = minutes
-    year_: int = base_year
+    year_: int = BASE_YEAR
     while True:
-        if (minute_ < minutes_usual or
-                (minute_ < minutes_leap and is_leap(year_))):
+        if (minute_ < MINUTES_USUAL or
+                (minute_ < MINUTES_LEAP and is_leap(year_))):
             break
         if is_leap(year_):
-            minute_ -= minutes_leap
+            minute_ -= MINUTES_LEAP
         else:
-            minute_ -= minutes_usual
+            minute_ -= MINUTES_USUAL
         year_ += 1
 
     month_: int = 1
     while True:
-        if minute_ < minutes_in_month[month_]:
+        if minute_ < MINUTES_IN_MONTH[month_]:
             break
-        minute_ -= minutes_in_month[month_]
+        minute_ -= MINUTES_IN_MONTH[month_]
         month_ += 1
 
     day_: int = minute_ // (24 * 60) + 1
@@ -85,14 +87,14 @@ def extract(minute: int, hour: int, day: int, month: int, year: int) -> int:
 
     day = 0
     for index in range(1, month):
-        day += days_in_months[index]
+        day += DAYS_IN_MONTH[index]
     answer += 1440 * day
 
-    for inbetween in range(base_year, year):
+    for inbetween in range(BASE_YEAR, year):
         if is_leap(inbetween):
-            answer += minutes_leap
+            answer += MINUTES_LEAP
         else:
-            answer += minutes_usual
+            answer += MINUTES_USUAL
 
     return answer
 

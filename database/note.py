@@ -1,11 +1,9 @@
-whitespaces: list[str] = [' ', '\t', '\n', '\r', '\v']
-separator: str = "!#"
-id_counter: int = 1
+from database.constants import ID_COUNTER, SEPARATOR, WHITESPACES
 
 
 def cut_head(text: str) -> str:
     index: int = 0
-    while index < len(text) and text[index] in whitespaces:
+    while index < len(text) and text[index] in WHITESPACES:
         index += 1
 
     if index == len(text):
@@ -15,7 +13,7 @@ def cut_head(text: str) -> str:
 
 def cut_tail(text: str) -> str:
     index: int = len(text) - 1
-    while index >= 0 and text[index] in (whitespaces + ['.']):
+    while index >= 0 and text[index] in (WHITESPACES + ['.']):
         index -= 1
 
     if index < 0:
@@ -36,18 +34,18 @@ class Note:
         if not len(data) or data.count(' ') == len(data):
             raise ValueError
 
-        global id_counter
-        self.note_id = f"note_{id_counter}"
-        id_counter += 1
+        global ID_COUNTER
+        self.note_id = f"note_{ID_COUNTER}"
+        ID_COUNTER += 1
 
-        global separator
-        index: int = data.find(separator)
+        global SEPARATOR
+        index: int = data.find(SEPARATOR)
 
         if index == -1:
             self.text = data
             self.title = "Untitled"
         else:
-            self.text = data[index + len(separator + ' '):]
+            self.text = data[index + len(SEPARATOR + ' '):]
             self.title = data[:index]
 
         self.text = cut(self.text)

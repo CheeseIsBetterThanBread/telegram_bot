@@ -1,3 +1,6 @@
+from database.constants import ID_COUNTER
+
+
 def convert_to_number(text: str) -> str:
     answer: str = ""
     for symbol in text:
@@ -20,9 +23,6 @@ def extract_name(data: list[str]) -> (str, list[str]):
     return answer, data[index:]
 
 
-id_counter: int = 1
-
-
 class Contact:
     telephone: str
     name: str
@@ -36,9 +36,9 @@ class Contact:
         self.telephone = convert_to_number(data[0])
         self.name, data = extract_name(data[1:])
 
-        global id_counter
-        self.contact_id = f"contact_{id_counter}"
-        id_counter += 1
+        global ID_COUNTER
+        self.contact_id = f"contact_{ID_COUNTER}"
+        ID_COUNTER += 1
 
         if not len(data) or '@' not in data[0]:
             self.email = None

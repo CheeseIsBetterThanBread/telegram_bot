@@ -1,4 +1,5 @@
-from .time_and_date import is_date, is_time, Time
+from database.constants import ID_COUNTER
+from database.time_and_date import is_date, is_time, Time
 
 
 def construct(data: list[str], default: Time) -> (list[str], Time):
@@ -20,9 +21,6 @@ def construct(data: list[str], default: Time) -> (list[str], Time):
     return data[1:], current_time
 
 
-id_counter: int = 1
-
-
 class Case:
     start: Time
     end: Time
@@ -42,9 +40,9 @@ class Case:
             for index in range(1, len(data)):
                 self.description += " " + data[index]
 
-        global id_counter
-        self.case_id = f"identify_{id_counter}"
-        id_counter += 1
+        global ID_COUNTER
+        self.case_id = f"identify_{ID_COUNTER}"
+        ID_COUNTER += 1
 
     def __eq__(self, other) -> bool:
         return self.case_id == other.case_id

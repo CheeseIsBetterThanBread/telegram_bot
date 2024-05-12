@@ -154,3 +154,47 @@ class Note:
     def to_share(self) -> str:
         pass
 ```
+
+## Установка и запуск
+
+### 1. Получение api токена
+[bot_father]: https://t.me/BotFather
+[bot_father_info]: https://core.telegram.org/bots#botfather
+
+Для начала нужно получить токен у [Bot Father][bot_father]. 
+[Здесь][bot_father_info] можно почитать про то, как с ним взаимодействовать
+
+### 2. Установка переменных окружения
+Для работы проекта нужно установить переменные `API_TOKEN` и `ADMIN`.
+Сделать это можно разными способами, например:
+- Только на текущую сессию
+```bash
+export API_TOKEN="<your api token>"
+export ADMIN="<your tg username>"
+```
+- Только для текущей оболочки shell
+
+Для этого нужно написать те же строчки в файл `~/.bashrc`
+
+- Только для текущего пользователя
+
+Дописываем те же строчки в файл `~/.profile`
+
+- Установить постоянные переменные окружения
+
+В файле `/etc/environment` дописываем строки
+```bash
+API_TOKEN="<your api token>"
+ADMIN="<your tg username>"
+```
+
+### 3. Запуск проекта
+Установить все нужные зависимости можно с помощью
+```bash
+pip install -r requirements.txt
+```
+
+После этого проект готов к запуску. Достаточно использовать команду
+```bash
+python3 main.py
+```
